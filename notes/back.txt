@@ -21,3 +21,7 @@ CREATE TABLE posts(
 
 3. npm i styled-components react-query history@5 react-router-dom@6
 useful for back in server
+
+
+npm i express express-session passport passport-google-oauth20 dotenv cors
+stores cookies

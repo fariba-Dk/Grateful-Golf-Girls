@@ -6,3 +6,10 @@ User
 git remote add origin https://github.com/fariba-Dk/Grateful-Golf-Girls.git
 git branch -M main
 git push -u origin main
+
+set up our react front landing page
+have a logg-in user form
+create a context form from react
+
+set up express node server side
+set db
