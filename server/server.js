@@ -4,6 +4,7 @@ const app = express()
 const cors = require('cors')
 const session = require('express-session')
 const passport = require('passport')
+require("./auth")
 
 //use is sets sup midd. when request comes to server, sends it to the app and the request goes thru every line from top to buttom... get '/',...)
 //cors a func takes an obj takes in props like credentials and origin
