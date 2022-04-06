@@ -4,6 +4,7 @@ import SignUp from "./components/SignUp";
 import StyledApp from "./components/styled/App.styled";
 import GlobalStyles from "./components/styled/GlobalStyles";
 import { darkTheme } from "./themes";
+import Context from './components/CreateUserContext'
 
 
 
@@ -16,11 +17,11 @@ const App = () => {
 
         <GlobalStyles />
           <StyledApp>
+            <Context>
 
-            <SignUp/>
+              <SignUp/>
 
-
-
+            </Context>
           </StyledApp>
       </ThemeProvider>
 
