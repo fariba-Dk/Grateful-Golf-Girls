@@ -25,3 +25,5 @@ useful for back in server
 
 npm i express express-session passport passport-google-oauth20 dotenv cors
 stores cookies
+
+http://www.passportjs.org/packages/passport-google-oauth20/
