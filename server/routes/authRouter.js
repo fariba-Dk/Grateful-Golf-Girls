@@ -10,7 +10,6 @@ const passport = require('passport')
   beffore you send out the response let me get the cookie and save it
 */
 router.get("/google", passport.authenticate('google', {
-
   scope:"profile",
 }))
 
@@ -25,15 +24,13 @@ google send us to the call back
 5.
 */
 
-router.get("/google/callback", passport.authenticate('google', {
+router.get("/google/callback", passport.authenticate("google",
+{
   session: true,
 }),
-(_, res) => {
-  res.redirect(`${process.env.CLIENT_URL}`);
+(req, res) => {
+  res.send(req.user);
 }
 )
-
-
-
 
 module.exports = router;

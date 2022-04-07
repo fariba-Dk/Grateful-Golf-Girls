@@ -30,7 +30,7 @@ passport.use(
           );
 
           const id = await pool.query("SELECT id FROM blog_user WHERE google_id=$1", [
-            account.sub,
+            account.sub
           ]);
           user = {
             id: id.rows[0].id,

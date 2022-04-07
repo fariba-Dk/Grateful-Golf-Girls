@@ -1,5 +1,12 @@
 
+const express = require("express");
+const router = express.Router();
 
+router.get("/", (req, res) => {
+  res.send("hi home");
+});
+
+module.exports = router;
 // const express = require("express");
 // const router = express.Router();
 // const isAuth = require("../isAuth");

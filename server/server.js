@@ -11,7 +11,7 @@ require("./auth")
   //we want to communicate our cookies we are cmmunicating to fe and be
 app.use(
   cors({
-  credentials : true,
+    credentials : true,
   origin: process.env.CLIENT_URL,
 
 }))
