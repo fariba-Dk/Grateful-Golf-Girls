@@ -15,3 +15,7 @@ CREATE TABLE posts(
 
 DROP TABLE blog_user
 ALTER TABLE blog_user ALTER COLUMN google_id TYPE VARCHAR(200)
+//$ sudo -u postgres psql
+\password
+Enter password: ...
+...

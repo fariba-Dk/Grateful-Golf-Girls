@@ -8,6 +8,7 @@ import GlobalStyle from "./components/styled/GlobalStyles";
 import { UserContext } from "./components/UserContext";
 import { darkTheme } from "./themes";
 
+
 function App() {
   const user = useContext(UserContext);
 
@@ -16,6 +17,7 @@ function App() {
       <ThemeProvider theme={darkTheme}>
         <GlobalStyle />
         <StyledApp>
+
           {user?.loggedIn === null ? (
             ""
           ) : user?.loggedIn === true ? (

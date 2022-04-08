@@ -1,3 +1,4 @@
+
 import StyledSignUp, {SignUpButton} from './styled/SignUp.Styled';
 //import "../images/golf-course.jpg"; // Tell webpack this JS file uses this image
 // import SignUpButton from './styled/SignUp.Styled'
@@ -5,7 +6,7 @@ import StyledSignUp, {SignUpButton} from './styled/SignUp.Styled';
 
 const SignUp = () => {
 
-  const Signin = e => {
+  const SignIn = e => {
     e.preventDefault();
     const str = `${process.env.REACT_APP_SERVER_URL}/auth/google`;
     window.open(str, "_self");
@@ -15,7 +16,7 @@ const SignUp = () => {
   <>
   <StyledSignUp>
 
-    <form onSubmit={Signin}>
+    <form onSubmit={SignIn}>
 
       <div>
       <a href="https://faribadk-portfolio.herokuapp.com">

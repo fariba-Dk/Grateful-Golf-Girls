@@ -3,6 +3,7 @@ const { Strategy: GoogleStrategy } = require("passport-google-oauth20");
 require("dotenv").config();
 const pool = require("./db/db");
 
+//console.log('this is line 6 in aut-->,',process.env.CLIENT_ID)
 passport.use(
   new GoogleStrategy(
     {
@@ -10,6 +11,7 @@ passport.use(
       clientSecret: process.env.CLIENT_SECRET,
       callbackURL: process.env.GOOGLE_CALLBACK_URL,
     },
+
     async (_, __, profile, done) => {
       const account = profile._json;
       console.log(account)

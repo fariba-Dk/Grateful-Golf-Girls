@@ -1,72 +1,76 @@
 import styled from "styled-components";
 
-const Nav = styled.div``;
-
-export const HamburgerButton = styled.i`
+const PostModal = styled.div`
   position: absolute;
-  top: 0;
-  left: 0;
-  margin: 1rem;
-  font-size: 2.1rem;
-  z-index: 2;
-  @media (min-width: 600px) {
-    display: none;
-  }
-`;
-
-export const MobileMenu = styled.nav`
+  inset: 0;
+  z-index: 3;
+  background-color: #1118;
   display: flex;
-  background-color: ${({ theme }) => theme.elevation_2};
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 35%;
-  flex-direction: column;
-  padding: 4rem 0.5rem;
-  gap: 2rem;
-  text-align: center;
-  font-size: 1.3rem;
-  font-weight: bold;
-  transform: ${({ open }) => (open ? "translateX(0%);" : "translateX(-100%);")};
-  transition: transform 150ms ease-in;
-  a:first-child {
-    text-decoration: none;
-  }
-  a {
-    color: white;
-  }
-  @media (min-width: 600px) {
-    display: none;
-  }
-`;
-
-export const DesktopMenu = styled.nav`
-  display: flex;
-  background-color: ${({ theme }) => theme.elevation_2};
+  justify-content: center;
   align-items: center;
-  text-align: center;
-  padding: 1rem 2rem;
-  max-width: 100%;
-  height: 15%;
-  gap: 3rem;
-  font-size: 1.5rem;
-  a:first-child {
-    margin-right: auto;
-    &:hover {
-      text-decoration: none;
-    }
+`;
+export const PostModalForm = styled.form`
+  width: 90%;
+  max-width: 500px;
+  height: 50%;
+  box-shadow: ${({ theme }) => theme.shadow};
+  background-color: ${({ theme }) => theme.elevation_3};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  & > textarea {
+    width: 90%;
+    max-width: 400px;
+    height: 50%;
+    outline: 0;
+    border: 0;
+    border-radius: 5px;
+    resize: none;
+    padding: 1rem;
+    box-sizing: border-box;
+    font-size: 1.4rem;
   }
-  a {
-    text-decoration: none;
+  & > button {
     color: white;
-    &:hover {
-      text-decoration: underline;
+    background-color: ${({ theme }) => theme.primary};
+    outline: 0;
+    border: 0;
+    appearance: none;
+    --webkit-appearance: none;
+    --moz-appearance: none;
+    text-decoration: none;
+    padding: 0.7rem 1.5rem;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    &:active {
+      transform: scale(0.98);
     }
   }
-  @media (max-width: 600px) {
-    display: none;
+`;
+export const PostModalHeader = styled.div``;
+
+export const PostModalButton = styled.i`
+  z-index: 4;
+  margin-top: auto;
+  margin-inline: auto;
+  padding: 0.7rem 1.7rem;
+  font-size: 2.8rem;
+  color: ${({ theme }) => theme.primary};
+  background-color: transparent;
+  border-radius: 5px;
+  border: 4px solid ${({ theme }) => theme.primary};
+  @media (min-width: 600px) {
+    margin-top: 0;
+    margin-inline: 0;
+    padding: 0.2rem 1rem;
+    font-size: 2rem;
+    &:hover {
+      color: ${({ theme }) => theme.elevation_2};
+      background-color: ${({ theme }) => theme.primary};
+      transition: all 150ms ease-in;
+    }
   }
 `;
 
-export default Nav;
+export default PostModal;
