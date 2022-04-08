@@ -1,0 +1,48 @@
+
+1. npm instal pg
+-> pg is a library connects postgres sequal to node.js to
+
+2. CREATE DATABASE golf_girls_blog;
+
+CREATE TABLE blog_user (
+  id SERIAL PRIMARY KEY,
+  username VARCHAR(255) NOT NULL,
+  img VARCHAR(255) NOT NULL,
+  google_id VARCHAR NOT NULL UNIQUE
+);
+
+CREATE TABLE posts(
+  id SERIAL PRIMARY KEY,
+  body VARCHAR(255) NOT NULL,
+  author_id INT references blog_user(id) NOT NULL
+);
+*** need a data
+
+3. npm i styled-components react-query history@5 react-router-dom@6
+useful for back in server
+
+
+npm i express express-session passport passport-google-oauth20 dotenv cors
+stores cookies
+
+http://www.passportjs.org/packages/passport-google-oauth20/
+
+
+https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3500%2Fauth%2Fgoogle%2Fcallback&scope=profile&client_id=219412222217-2qrr4i5afc2k7deppcbl5uintj9bdv6v.apps.googleusercontent.com&flowName=GeneralOAuthFlow
+
+
+components:
+Blog
+User
+
+…or push an existing repository from the command line
+git remote add origin https://github.com/fariba-Dk/Grateful-Golf-Girls.git
+git branch -M main
+git push -u origin main
+
+set up our react front landing page
+have a logg-in user form
+create a context form from react
+
+set up express node server side
+set db

@@ -4,7 +4,7 @@
 const passport = require("passport");
 const { Strategy: GoogleStrategy } = require("passport-google-oauth20");
 require("dotenv").config();
-const pool = require("./db/db");
+const pool = require('./db/db');
 
 passport.use(
   new GoogleStrategy(
@@ -15,6 +15,7 @@ passport.use(
     },
     async (_, __, profile, done) => {
       const account = profile._json;
+      console.log(account)
       let user = {};
       try {
         const currentUserQuery = await pool.query(

@@ -2,8 +2,6 @@ const express = require('express')
 const router = express.Router();
 const passport = require('passport')
 
-
-
   /*users send req to begin authentication cycle
   //we are telling passport that we are using google passport strategy so we need to set up our passort google strategy
   it hooks into an event that is called() when req is finished and response is send
