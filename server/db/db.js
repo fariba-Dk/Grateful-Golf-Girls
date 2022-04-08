@@ -1,6 +1,6 @@
 //pg gives us an object and we want to destructre it and take out the pool
 
-const { Pool } = require('pg');
+const { Pool } = require("pg");
 require('dotenv').config()
 
 const pool = new Pool({

@@ -1,6 +1,3 @@
-//we are setting passport google strategy
-//http://www.passportjs.org/packages/passport-google-oauth20/
-
 const passport = require("passport");
 const { Strategy: GoogleStrategy } = require("passport-google-oauth20");
 require("dotenv").config();
@@ -15,6 +12,7 @@ passport.use(
     },
     async (_, __, profile, done) => {
       const account = profile._json;
+      console.log(account)
       let user = {};
       try {
         const currentUserQuery = await pool.query(
@@ -62,7 +60,6 @@ passport.deserializeUser((user, done) => {
   // loads into req.user
   done(null, user);
 });
-
 
 
 

@@ -1,13 +1,14 @@
-import App from './App';
-import Context from './components/Context'
-import { createRoot } from 'react-dom/client';
-const container = document.getElementById('app');
-const root = createRoot(container);
 
-//we have to access user object first
-root.render(
-  <Context>
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import Context from "./components/UserContext";
 
-    <App />
-
-  </Context>);
+ReactDOM.render(
+  <React.StrictMode>
+    <Context>
+      <App />
+    </Context>
+  </React.StrictMode>,
+  document.getElementById("app")
+);
