@@ -9,7 +9,7 @@
 /notes
 .back.txt
 .front.txt
-
+.env
 
 # testing
 /coverage

@@ -1,21 +1,36 @@
-CREATE DATABASE golf_girls_blog
+CREATE DATABASE golf_blog;
 
-CREATE TABLE blog_user (
+CREATE TABLE golf_blogger(
   id SERIAL PRIMARY KEY,
   username VARCHAR(255) NOT NULL,
-  img VARCHAR(255) NOT NULL,
+  img VARCHAR(255),
   google_id VARCHAR NOT NULL UNIQUE
-);
+  email VARCHAR(40))
+
+
+
+                                     Table "public.golf_blogger"
+  Column   |          Type          | Collation | Nullable |                 Default
+-----------+------------------------+-----------+----------+------------------------------------------
+ id        |
+ username  |
+ img       |
+ google_id |
+ email     |
+
+
+
 
 CREATE TABLE posts(
   id SERIAL PRIMARY KEY,
-  body VARCHAR(255) NOT NULL,
-  author_id INT references blog_user(id) NOT NULL
-);
+  title VARCHAR(255) NOT NULL,
+  author INT references golf_blogger(id) NOT NULL,
+  posting_date DATE NOT NULL);
 
-DROP TABLE blog_user
-ALTER TABLE blog_user ALTER COLUMN google_id TYPE VARCHAR(200)
-//$ sudo -u postgres psql
-\password
-Enter password: ...
-...
+
+CREATE TABLE golf_courses (
+  id INT,
+  name VARCHAR(255) NOT NULL,
+  location VARCHAR,
+  price_range INT,
+  ratings INT);

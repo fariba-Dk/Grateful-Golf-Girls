@@ -13,3 +13,4 @@ create a context form from react
 
 set up express node server side
 set db
+REACT_APP_SERVER_URL="http://localhost:4040"
