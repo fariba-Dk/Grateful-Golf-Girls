@@ -2,9 +2,8 @@ import useFeed from "./hooks/useFeed";
 import Post from "./Post";
 import StyledFeed, { LoadMoreButton } from "./styled/Feed.styled";
 
-const Account = () => {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useFeed("my_posts");
+const Account = async () => {
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = await useFeed("my_posts");
   return (
     <StyledFeed>
       <h1>My Posts</h1>

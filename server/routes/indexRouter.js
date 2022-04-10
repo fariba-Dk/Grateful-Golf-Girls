@@ -9,7 +9,7 @@
 //     ...req.user,
 //     loggedIn: true,
 //   };
-//   res.json(user);
+//   res.(user);
 // });
 
 // router.post("/new_post", isAuth, async (req, res) => {

@@ -13,10 +13,7 @@ app.use(express.json());
 app.use(cors())
 
 
-
 // ------------- ROUTES -----------
-
-
 //  ----- GET  ALL BLOGGERS ---http://localhost:4040/bloggers
 app.get('/bloggers', cors(), async(req, res,) => {
 
@@ -38,9 +35,9 @@ app.get('/bloggers/:id', cors(), async(req, res) => {
 
   try{
     const {id} = req.params;
-    const bloggers = await db.query("SELECT * FROM golf_blogger WHERE id = $1", [id]);
+    const oneBlogger = await db.query("SELECT * FROM golf_blogger WHERE id = $1", [id]);
 
-    res.status(200).json(bloggers.rows[0])
+    res.status(200).json(oneBlogger.rows[0])
 
   }catch(err){
 
@@ -53,9 +50,9 @@ app.get('/bloggers/:id', cors(), async(req, res) => {
 app.get('/courses', cors(), async(req, res, next) => {
 
   try{
-    const golfCourses = await db.query("SELECT * FROM golf_courses");
+    const getCourses = await db.query("SELECT * FROM golf_courses");
 
-    res.status(200).json(golfCourses.rows)
+    res.status(200).json(getCourses.rows)
 
   }catch(err){
     res.status(400)
@@ -67,9 +64,9 @@ app.get('/courses/:id', cors(), async(req, res) => {
 
   try{
     const {id} = req.params;
-    const golfCourses = await db.query("SELECT * FROM golf_courses WHERE id = $1", [id]);
+    const getOneCourse = await db.query("SELECT * FROM golf_courses WHERE id = $1", [id]);
 
-    res.status(200).json(golfCourses.rows[0])
+    res.status(200).json(getOneCourse.rows[0])
     console.log('this is golf/id should take you to a golf course page')
 
   }catch(err){
@@ -83,9 +80,9 @@ app.get('/courses/:id', cors(), async(req, res) => {
 app.get('/posts', cors(), async(req, res) => {
 
   try{
-    const posts = await db.query("SELECT * FROM posts")
+    const getAllPosts = await db.query("SELECT * FROM posts")
 
-    res.status(200).json(posts.rows)
+    res.status(200).json(getAllPosts.rows)
 
     console.log('this is all posts')
 
@@ -101,10 +98,10 @@ app.get('/posts/:id', cors(), async(req, res) => {
   try{
     const {id} = req.params;
     //SELECT "id", "body", "author_id", "posting_date" FROM "public"."posts"  ORDER BY "id" ASC  LIMIT 1000
-    const posts = await db.query("SELECT * FROM posts WHERE id = $1", [id]);
-    const allPosts =await db.query('SELECT "id", "body", "author_id", "posting_date" FROM "public"."posts"  ORDER BY "id" ASC  LIMIT 1000')
+    const getOnePost = await db.query("SELECT * FROM posts WHERE id = $1", [id]);
+    //const getAllPosts =await db.query('SELECT "id", "body", "author_id", "posting_date" FROM "public"."posts"  ORDER BY "id" ASC  LIMIT 1000')
 
-    res.status(200).json(posts.rows[0])
+    res.status(200).json(getOnePost.rows[0])
 
     console.log('this is golfer page using posts/id should take you to a golf player page')
 
@@ -116,12 +113,11 @@ app.get('/posts/:id', cors(), async(req, res) => {
 
 
 //~~~~~~~    POST ROUTES
-
 //----- POST A NEW BLOGGER   (username, img, google_id, email, residence)
 app.post('/blogger', cors(), async (req, res) => {
 
   try{
-    const newBlogger = {
+    const addABlogger = {
     username: req.body.username,
     img:req.body.img,
     google_id: req.body.google_id,
@@ -130,7 +126,7 @@ app.post('/blogger', cors(), async (req, res) => {
     }
 
     const newBlogger = await db.query("INSERT INTO golf_blogger (username,img,google_id,email,residence) VALUES($1,$2,$3,$4,$5) RETURNING *",
-    [newBlogger.username,newBlogger.img,newBlogger.google_id,newBlogger.email,newBlogger.residence])
+    [addABlogger.username,addABlogger.img,addABlogger.google_id,addABlogger.email,addABlogger.residence])
     res.status(200).json(newBlogger.rows[0])
   }catch(err){
     res.status(400).json(err)
@@ -138,18 +134,21 @@ app.post('/blogger', cors(), async (req, res) => {
 })
 
 //------  POST A NEW COURSE ----- (name, location, price_range, ratings)
-app.post('/course', cors(), async (req, res) => {
+app.post('/courses', cors(), async (req, res) => {
 
   try{
-    const newCourse = {name: req.body.name,
+
+    const addACourse = {name: req.body.name,
     location:req.body.location,
     price_range: req.body.price_range,
     ratings:req.body.price_range,
     city:req.body.city,
-    state:req.body.state}
+    state:req.body.state
+  }
 
-    const newGolfCourse = await db.query("INSERT INTO golf_courses (name,location,price_range,ratings,city,state) VALUES($1,$2,$3,$4,$6) RETURNING *",[newGolfCourse.name,newGolfCourse.location,newGolfCourse.price_range,newGolfCourse.ratings,newGolfCourse.city,newGolfCourse.state])
-    res.status(200).json(newGolfCourse.rows[0])
+  const newCourse = await db.query("INSERT INTO golf_courses (name,location,price_range,ratings,city,state)VALUES($1,$2,$3,$4,$5,$6) RETURNING *",[addACourse.name,addACourse.location,addACourse.price_range,addACourse.ratings,addACourse.city,addACourse.state])
+    res.status(200).json(newCourse.rows[0])
+
   }catch(err){
     res.status(400).json(err)
   }
@@ -157,15 +156,15 @@ app.post('/course', cors(), async (req, res) => {
 
 
 //-------  POST A NEW POST --- (body, author_id, posting_date)
-app.post('/post', cors(), async(req, res) => {
+app.post('/posts', cors(), async(req, res) => {
 
   try{
-    const newPost = {title: req.body.title,
+    const addAPost = {title: req.body.title,
     author:req.body.author,
     posting_date:req.body.posting_date}
 
-    const result = await db.query("INSERT INTO posts(title,author,posting_date) VALUES ($1,$2,$3) RETURNING *", [newPost.title, newPost.author,newPost.posting_date]);
-    res.status(200).json(result.row[0])
+    const newPost = await db.query("INSERT INTO posts(title,author,posting_date) VALUES ($1,$2,$3) RETURNING *", [addAPost.title, addAPost.author,addAPost.posting_date]);
+    res.status(200).json(newPost.row[0])
 
   }catch(err){
 
@@ -179,7 +178,7 @@ app.put('/blogger/:id', cors(), async(req, res) => {
 
   try{
     const {id} = req.params;
-    const bloggerUpdated = await db.query("SELECT * FROM golf_courses WHERE id = $1", [id]);
+    const bloggerUpdated = await db.query("SELECT * FROM golf_blogger WHERE id = $1", [id]);
 
     res.status(200).json(bloggerUpdated.rows[0])
     console.log('this is golf/id should take you to a golf course page')
@@ -229,9 +228,9 @@ app.delete('/blogger/:id', cors(), async(req, res) => {
 
   try{
     const {id} = req.params;
-    const bloggerDeleted = await db.query("SELECT * FROM golf_courses WHERE id = $1", [id]);
+    const deleteBlogger = await db.query("SELECT * FROM golf_blogger WHERE id = $1", [id]);
 
-    res.status(200).json(bloggerDeleted.rows[0])
+    res.status(200).json(deleteBlogger.rows[0])
     console.log('this is golf/id should take you to a golf course page')
 
   }catch(err){
@@ -245,9 +244,9 @@ app.delete('/courses/:id', cors(), async(req, res) => {
 
   try{
     const {id} = req.params;
-    const courseDeleted = await db.query("SELECT * FROM golf_courses WHERE id = $1", [id]);
+    const deleteCourse = await db.query("SELECT * FROM golf_courses WHERE id = $1", [id]);
 
-    res.status(200).json(courseDeleted.rows[0])
+    res.status(200).json(deleteCourse.rows[0])
     console.log('this is golf/id should take you to a golf course page')
 
   }catch(err){
@@ -258,13 +257,13 @@ app.delete('/courses/:id', cors(), async(req, res) => {
 
 
 //DELETE ----- DELETE A POST/:id
-app.delete('/post/:id', cors(), async(req, res) => {
+app.delete('/posts/:id', cors(), async(req, res) => {
 
   try{
     const {id} = req.params;
-    const postDeleted = await db.query("SELECT * FROM posts WHERE id = $1", [id]);
+    const deletePost = await db.query("SELECT * FROM posts WHERE id = $1", [id]);
 
-    res.status(200).json(postDeleted.rows[0])
+    res.status(200).json(deletePost.rows[0])
     console.log('this is post/id should take you page')
 
   }catch(err){
