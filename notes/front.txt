@@ -14,7 +14,7 @@ get put delete
 
 
 
-get post 
+get post
 /posts
 
 get put delete
@@ -55,3 +55,8 @@ create a context form from react
 set up express node server side
 set db
 REACT_APP_SERVER_URL="http://localhost:4040"
+
+
+git remote add origin https://github.com/fariba-Dk/golf-blog.git
+git branch -M main
+git push -u origin main
