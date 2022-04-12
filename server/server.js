@@ -9,7 +9,7 @@ const db = require('../server/db/db');
 
 
 //MIDDLE => has access to both request and response
-app.use(express.json());
+app.use(express.json());//give req calls json body
 app.use(cors())
 
 
@@ -137,7 +137,6 @@ app.post('/blogger', cors(), async (req, res) => {
 app.post('/courses', cors(), async (req, res) => {
 
   try{
-
     const addACourse = {name: req.body.name,
     location:req.body.location,
     price_range: req.body.price_range,
@@ -173,65 +172,57 @@ app.post('/posts', cors(), async(req, res) => {
 
 })
 
-//PUT ---> UPDATE A BLOGGER /:id ----
-app.put('/blogger/:id', cors(), async(req, res) => {
+//PUT ---> UPDATE A BLOGGER /:id ---- its like POST => we have to pass in all the fields to update
+// (username, img, google_id, email, residence)
+app.put('/blogger/:id', cors(), async (req, res) => {
+  console.log(req.body)
 
   try{
-    const {id} = req.params;
-    const bloggerUpdated = await db.query("SELECT * FROM golf_blogger WHERE id = $1", [id]);
-
-    res.status(200).json(bloggerUpdated.rows[0])
-    console.log('this is golf/id should take you to a golf course page')
+    const updatedBlogger = await db.query("UPDATE golf_blogger SET username=$1,email=$2,residence=$3 WHERE id=$4 RETURNING *", [req.body.username,req.body.email,req.body.residence])
+    res.status(200).json(updatedBlogger.rows[0])
 
   }catch(err){
-
     res.status(400).json(err)
   }
 })
 
-//PUT -------> UPDATE  COURSES/:id
-app.put('/courses/:id', cors(), async(req, res) => {
+//------  PUT/UPDATE A COURSE ----- (name, location, price_range, ratings)
+app.put('/course/:id', cors(), async (req, res) => {
+  console.log(req.body)
 
   try{
-    const {id} = req.params;
-    const courseUpdated = await db.query("SELECT * FROM golf_courses WHERE id = $1", [id]);
-
-    res.status(200).json(courseUpdated.rows[0])
-    console.log('this is golf/id should take you to a golf course page')
+    const updatedCourse = await db.query("UPDATE golf_course SET name=$1, location=$2,ratings=$3 WHERE id=$4 RETURNING *",
+    [req.body.name, req.body.location,req.body.ratings])
+    res.status(200).json(updatedCourse.rows[0])
 
   }catch(err){
-
     res.status(400).json(err)
   }
 })
 
 
-//PUT ---> blogger/id
-app.put('/post/:id', cors(), async(req, res) => {
+//-------  PUT/UPDATE A POST --- (title, author, posting_date)
+app.put('/course/:id', cors(), async (req, res) => {
+  console.log(req.body)
 
   try{
-    const {id} = req.params;
-    const postUpdated = await db.query("SELECT * FROM posts WHERE id = $1", [id]);
+    const updatedPost = await db.query("UPDATE posts SET title=$1, author=$2,posting_date=$3 WHERE id=$4 RETURNING *",
+    [req.body.title, req.body.author,req.body.posting_date])
 
-    res.status(200).json(postUpdated.rows[0])
-    console.log('this is post/id should take you page')
-
+    res.status(200).json(updatedPost.rows[0])
   }catch(err){
-
     res.status(400).json(err)
   }
 })
-
 
 //DELETE ----- DELETE A BLOGGER/:id
 app.delete('/blogger/:id', cors(), async(req, res) => {
 
   try{
-    const {id} = req.params;
-    const deleteBlogger = await db.query("SELECT * FROM golf_blogger WHERE id = $1", [id]);
+    const deleteBlogger = await db.query("DELETE FROM golf_blogger WHERE id = $1", [req.params.id]);
 
     res.status(200).json(deleteBlogger.rows[0])
-    console.log('this is golf/id should take you to a golf course page')
+    console.log('Blogger is deleted successfully')
 
   }catch(err){
 
@@ -243,11 +234,10 @@ app.delete('/blogger/:id', cors(), async(req, res) => {
 app.delete('/courses/:id', cors(), async(req, res) => {
 
   try{
-    const {id} = req.params;
-    const deleteCourse = await db.query("SELECT * FROM golf_courses WHERE id = $1", [id]);
+    const deleteCourse = await db.query("DELETE FROM golf_courses WHERE id = $1", [req.params.id]);
 
     res.status(200).json(deleteCourse.rows[0])
-    console.log('this is golf/id should take you to a golf course page')
+    console.log('The golf course is deleted successfully')
 
   }catch(err){
 
@@ -260,11 +250,10 @@ app.delete('/courses/:id', cors(), async(req, res) => {
 app.delete('/posts/:id', cors(), async(req, res) => {
 
   try{
-    const {id} = req.params;
-    const deletePost = await db.query("SELECT * FROM posts WHERE id = $1", [id]);
+    const deletedPost = await db.query("SELECT * FROM posts WHERE id = $1", [req.params.id]);
 
-    res.status(200).json(deletePost.rows[0])
-    console.log('this is post/id should take you page')
+    res.status(200).json(deletedPost.rows[0])
+    console.log('The post is deleted successfully')
 
   }catch(err){
 

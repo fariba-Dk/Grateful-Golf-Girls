@@ -1,3 +1,44 @@
+
+get post
+/bloggers
+
+get put delete
+/bloggers/:id
+
+
+get post
+/courses
+
+get put delete
+/courses/:id
+
+
+
+get post 
+/posts
+
+get put delete
+/posts/:id
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 components:
 Blog
 User
